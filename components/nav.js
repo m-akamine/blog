@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import styles from 'styles/nav.module.css'
 
 const NavList = [
   { title: 'Home', url: '/' },
@@ -9,7 +10,7 @@ const NavList = [
 const Nav = () => {
   return (
     <nav>
-      <ul>
+      <ul className={styles.list}>
         {NavList.map(post => (
           <li key={post.title}>
             <Link href={post.url}>{post.title}</Link>
