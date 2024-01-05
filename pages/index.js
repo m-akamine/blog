@@ -1,3 +1,4 @@
+import Container from 'components/container'
 import Hero from 'components/hero'
 
 const props = {
@@ -7,6 +8,10 @@ const props = {
 }
 
 const Home = () => {
-  return <Hero {...props} />
+  return (
+    <Container>
+      <Hero {...props} />
+    </Container>
+  )
 }
 export default Home
