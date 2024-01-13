@@ -1,12 +1,27 @@
 import { getPostBySlug } from 'lib/api'
 import Container from 'components/container'
 import PostHeader from 'components/post-header'
+import Image from 'next/image'
 
 const Schedule = ({ title, publish, content, eyecatch, categories }) => {
   return (
     <Container>
       <article>
         <PostHeader title={title} subtitle='Blog Article' publish={publish} />
+        <figure>
+          <Image
+            src={eyecatch.url}
+            alt=''
+            width={eyecatch.width}
+            height={eyecatch.height}
+            sizes='(min-width: 1152px) 1152px, 100vw'
+            priority
+            style={{
+              width: '100%',
+              height: 'auto'
+            }}
+          />
+        </figure>
       </article>
     </Container>
   )
