@@ -12,6 +12,10 @@ import {
 import ConvertBody from 'components/convert-body'
 import PostCategories from 'components/post-categories'
 import Image from 'next/image'
+import { getPlaiceholder } from 'plaiceholder'
+
+// ローカルの代替アイキャッチ画像
+import { eyecatchLocal } from 'lib/constants'
 
 const Schedule = ({
   title,
@@ -40,6 +44,8 @@ const Schedule = ({
             height={eyecatch.height}
             sizes='(min-width: 1152px) 1152px, 100vw'
             priority
+            placeholder='blur'
+            blurDataURL={eyecatch.blurDataURL}
             style={{
               width: '100%',
               height: 'auto'
@@ -62,18 +68,22 @@ const Schedule = ({
 }
 
 const getStaticProps = async () => {
-  const slug = 'schedule'
+  const slug = 'micro'
 
   const post = await getPostBySlug(slug)
 
   const description = extractText(post.content)
+  const eyecatch = post.eyecatch ?? eyecatchLocal
+
+  const { base64 } = await getPlaiceholder(eyecatch.url)
+  eyecatch.blurDataURL = base64
 
   return {
     props: {
       title: post.title,
       publish: post.publishDate,
       content: post.content,
-      eyecatch: post.eyecatch,
+      eyecatch: eyecatch,
       categories: post.categories,
       description: description
     }
