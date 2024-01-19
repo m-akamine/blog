@@ -19,6 +19,9 @@ import { getPlaiceholder } from 'plaiceholder'
 // ローカルの代替アイキャッチ画像
 import { eyecatchLocal } from 'lib/constants'
 
+// Plaiceholder3用のBuffer化してから使用するように変更
+import { getImageBuffer } from 'lib/getImageBuffer'
+
 const Post = ({
   title,
   publish,
@@ -93,7 +96,8 @@ const getStaticProps = async context => {
   const description = extractText(post.content)
   const eyecatch = post.eyecatch ?? eyecatchLocal
 
-  const { base64 } = await getPlaiceholder(eyecatch.url)
+  const imageBuffer = await getImageBuffer(eyecatch.url)
+  const { base64 } = await getPlaiceholder(imageBuffer)
   eyecatch.blurDataURL = base64
 
   const allSlugs = await getAllSlugs()
