@@ -23,7 +23,7 @@ const Home = ({ posts }) => {
       <Hero {...props} />
 
       <Posts posts={posts} />
-      <Pagination nexUrl='/blog' nextText='More Posts' />
+      <Pagination nextUrl='/blog' nextText='More Posts' />
     </Container>
   )
 }
@@ -32,7 +32,7 @@ const getStaticProps = async () => {
   const posts = await getAllPosts(4)
 
   for (const post of posts) {
-    if (!post.hasOwnProperty('eyecatch')) {
+    if (!Object.prototype.hasOwnProperty.call(post, 'eyecatch')) {
       post.eyecatch = eyecatchLocal
     }
     const imageBuffer = await getImageBuffer(post.eyecatch.url)
